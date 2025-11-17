@@ -1,9 +1,718 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is an empty webpage!</title>
-  </head>
-  <body>
-    <p>If we're lucky, I might actually build this one day.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Development | Software for Humans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .portfolio-header::after {
+            content: '→';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s, right 0.3s;
+        }
+
+        a.portfolio-item:hover .portfolio-header::after {
+            opacity: 1;
+            right: 1rem;
+        }
+
+        .portfolio-header-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .portfolio-item h4 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .portfolio-stats {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .portfolio-body {
+            padding: 1.5rem;
+        }
+
+        .portfolio-body p {
+            color: #64748b;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .portfolio-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Slideshow styles */
+        .portfolio-slideshow {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slideshow-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 10s ease-in-out;
+            transform: scale(1.2) translate(0%, 0%);
+        }
+
+        .slideshow-image.active {
+            opacity: 1;
+        }
+
+        .slideshow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .slideshow-overlay h4 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            padding: 5rem 5%;
+            background: #f8fafc;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-item span {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .contact a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            margin: 1rem 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact a:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background: #1e293b;
+            color: white;
+            text-align: center;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+    <div class="logo">Software for Humans</div>
+    <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#tech">Technologies</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1>Mobile App Development</h1>
+        <p>Transforming ideas into exceptional mobile experiences. Building native iOS and Android applications that users love.</p>
+        <a href="#contact" class="cta-button">Get In Touch</a>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services">
+    <h2 class="section-title">What I Offer</h2>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">📱</div>
+            <h3>iOS Development</h3>
+            <p>Native iOS applications built with Swift and SwiftUI, optimized for performance and following Apple's Human Interface Guidelines.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🤖</div>
+            <h3>Android Development</h3>
+            <p>Modern Android apps using Kotlin and Jetpack Compose, designed with Material Design principles for an intuitive user experience.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔄</div>
+            <h3>Cross-Platform</h3>
+            <p>Efficient cross-platform solutions using React Native or Flutter, delivering quality apps for both iOS and Android from a single codebase.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🎨</div>
+            <h3>UI/UX Design</h3>
+            <p>Beautiful, intuitive interfaces designed with users in mind. From wireframes to polished mockups and interactive prototypes.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">☁️</div>
+            <h3>Backend Integration</h3>
+            <p>Seamless API integration and backend development to power your mobile apps with scalable cloud infrastructure.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🚀</div>
+            <h3>App Optimization</h3>
+            <p>Performance tuning, bug fixes, and feature enhancements for existing applications to improve user experience and ratings.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="portfolio-grid">
+        <a href="https://www.myunidays.com" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-header">
+                <div class="portfolio-header-content">
+                    <h4>UNiDAYS App</h4>
+                    <div class="portfolio-stats">1M+ monthly active users</div>
+                </div>
+            </div>
+            <div class="portfolio-body">
+                <p>iOS application connecting students with exclusive discounts and offers from top brands worldwide. Built for scale and performance.</p>
+                <div class="portfolio-tags">
+                    <span class="portfolio-tag">iOS</span>
+                    <span class="portfolio-tag">Swift</span>
+                    <span class="portfolio-tag">UIKit</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://systemloco.com" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-header">
+                <div class="portfolio-header-content">
+                    <h4>Shipments Platform</h4>
+                </div>
+            </div>
+            <div class="portfolio-body">
+                <p>Flutter web application for creating and monitoring cargo shipments from origin to destination with real-time supply chain visibility.</p>
+                <div class="portfolio-tags">
+                    <span class="portfolio-tag">Flutter</span>
+                    <span class="portfolio-tag">Web</span>
+                    <span class="portfolio-tag">Logistics</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://systemloco.com" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-header">
+                <div class="portfolio-header-content">
+                    <h4>Document Generator</h4>
+                </div>
+            </div>
+            <div class="portfolio-body">
+                <p>Serverless document generation system built with Dart, running on AWS Lambda to automate logistics documentation at scale.</p>
+                <div class="portfolio-tags">
+                    <span class="portfolio-tag">Dart</span>
+                    <span class="portfolio-tag">AWS Lambda</span>
+                    <span class="portfolio-tag">Serverless</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://archive.org/details/dock-app-installer-3.0.1" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-header">
+                <div class="portfolio-header-content">
+                    <h4>Henge Docks Control App</h4>
+                </div>
+            </div>
+            <div class="portfolio-body">
+                <p>macOS application for controlling the Horizontal Dock accessory for MacBook Pro, managing display configurations and dock functionality.</p>
+                <div class="portfolio-tags">
+                    <span class="portfolio-tag">macOS</span>
+                    <span class="portfolio-tag">Objective-C</span>
+                    <span class="portfolio-tag">Hardware Integration</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://apkpure.com/secret-life-of-pets-unleashed%E2%84%A2/com.ea.gp.pets" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-item" style="cursor: default;">
+                <div class="portfolio-slideshow">
+                    <img src="slop.webp" alt="Secret Life of Pets Interstitial" class="slideshow-image active">
+                    <img src="slop2.webp" alt="Secret Life of Pets Gameplay 1" class="slideshow-image">
+                    <img src="slop3.png" alt="Secret Life of Pets Gameplay 2" class="slideshow-image">
+                    <div class="slideshow-overlay">
+                        <h4>Secret Life of Pets Unleashed</h4>
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <p>Match-three mobile game for EA based on the popular animated film. Contract work building engaging gameplay mechanics in Unity.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Unity</span>
+                        <span class="portfolio-tag">C#</span>
+                        <span class="portfolio-tag">Mobile Gaming</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://toucharcade.com/games/jumping-jackabee" target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <div class="portfolio-slideshow">
+                <img src="jackabee3.jpg" alt="Jumpin Jackabee Title Screen" class="slideshow-image active">
+                <img src="jackabee1.jpg" alt="Jumpin Jackabee Gameplay 1" class="slideshow-image">
+                <img src="jackabee2.jpg" alt="Jumpin Jackabee Gameplay 2" class="slideshow-image">
+                <div class="slideshow-overlay">
+                    <h4>Jumpin Jackabee</h4>
+                </div>
+            </div>
+            <div class="portfolio-body">
+                <p>Beautiful isometric puzzle game built with Cocos2D. Guide Jackabee across floating cube platforms, collecting apples while avoiding wind-up robots.</p>
+                <div class="portfolio-tags">
+                    <span class="portfolio-tag">iOS</span>
+                    <span class="portfolio-tag">Cocos2D</span>
+                    <span class="portfolio-tag">Objective-C</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Tech Stack Section -->
+<section id="tech" class="tech-stack">
+    <h2 class="section-title">Technologies</h2>
+    <div class="tech-grid">
+        <div class="tech-item">
+            <span>🎯</span>
+            <h4>Flutter</h4>
+        </div>
+        <div class="tech-item">
+            <span>🍎</span>
+            <h4>Swift</h4>
+        </div>
+        <div class="tech-item">
+            <span>☁️</span>
+            <h4>AWS</h4>
+        </div>
+        <div class="tech-item">
+            <span>☕</span>
+            <h4>Java</h4>
+        </div>
+        <div class="tech-item">
+            <span>🧊</span>
+            <h4>Unity</h4>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+    <h2 class="section-title">Let's Build Something Great</h2>
+    <div class="contact-info">
+        <p>Ready to bring your mobile app idea to life? Get in touch to discuss your project.</p>
+        <a href="mailto:softwareforhumans@proton.me">📧 softwareforhumans@proton.me</a>
+        <a href="tel:+18318244739">📞 +1 (831) 824-4739</a>
+        <a href="https://www.linkedin.com/in/jtthrillson/" target="_blank">💼 LinkedIn</a>
+        <a href="https://github.com/jtthrillson" target="_blank">💻 GitHub</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Software for Humans. All rights reserved.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Close mobile menu if open
+                document.getElementById('navMenu').classList.remove('active');
+            }
+        });
+    });
+
+    // Mobile menu toggle
+    function toggleMenu() {
+        document.getElementById('navMenu').classList.toggle('active');
+    }
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+        } else {
+            nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        }
+    });
+
+    // Slideshow functionality with randomized panning
+    function initSlideshow() {
+        const slideshow = document.querySelector('.portfolio-slideshow');
+        if (!slideshow) return;
+
+        const images = slideshow.querySelectorAll('.slideshow-image');
+        let currentIndex = 0;
+
+        // Function to apply random pan to an image
+        function applyRandomPan(image) {
+            // Generate random translation values between -10% and 0%
+            const translateX = Math.random() * -10;
+            const translateY = Math.random() * -10;
+            image.style.transform = `scale(1.2) translate(${translateX}%, ${translateY}%)`;
+        }
+
+        // Apply initial random pan to first image
+        applyRandomPan(images[currentIndex]);
+
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+
+            // Apply new random pan to the next image
+            applyRandomPan(images[currentIndex]);
+            images[currentIndex].classList.add('active');
+        }, 3000); // Change image every 3 seconds
+    }
+
+    // Initialize slideshow when page loads
+    window.addEventListener('load', initSlideshow);
+</script>
+</body>
 </html>
